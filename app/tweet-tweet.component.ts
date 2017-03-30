@@ -15,16 +15,23 @@ import { Tweet } from './tweet.model';
 
 export class TweetComponent {
   mode = 'Observable';
-  tweeter = null;
   tweet = 'hello';
 
 
   constructor (private tweetService: TweetService) {
+    this.flickrUrl = tweetService.flickrUrl;
     this.tweeter = tweetService.getWord();
+    this.tweeter2 = tweetService.getPic();
   }
   findTweet() {
     this.tweeter.subscribe(res => {
-       this.tweet = res._body;
+
+      this.tweeter2.subscribe(res => {
+
+        this.tweet = res._body;
+      })
+
+
     });
 
   }

@@ -11,7 +11,8 @@ import 'rxjs/add/operator/map';
 export class TweetService {
 
   private wordUrl = 'http://randomword.setgetgo.com/get.php';
-  private word = null;
+  private flickrUrl = null;
+  private word = 'null';
 
   constructor (private http: Http) {}
 
@@ -23,14 +24,13 @@ export class TweetService {
 
 
   private extractData(res: Response) {
-    this.word = res;
-
-  return res || { };
+    return res || { };
   }
 
-  handleWord() {
-    this.word = this.word._body;
+  saveWord(word: string) {
+    this.word = word;
   }
+
 
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
@@ -44,5 +44,12 @@ export class TweetService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
+  }
+
+  getPic(): Observable<Tweet[]> {
+    console.log('')
+    return this.http.get(this.wordUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 }
