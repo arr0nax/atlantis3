@@ -20,12 +20,10 @@ export class TweetComponent {
 
 
   constructor (private tweetService: TweetService) {
-    this.tweeter = tweetService.getTweet();
+    this.tweeter = tweetService.getWord();
   }
   findTweet() {
-    console.log('hello');
     this.tweeter.subscribe(res => {
-       console.log(res);
        this.tweet = res._body;
     });
 

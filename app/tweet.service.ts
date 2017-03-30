@@ -11,17 +11,25 @@ import 'rxjs/add/operator/map';
 export class TweetService {
 
   private wordUrl = 'http://randomword.setgetgo.com/get.php';
+  private word = null;
 
   constructor (private http: Http) {}
 
-  getTweet(): Observable<Tweet[]> {
+  getWord(): Observable<Tweet[]> {
     return this.http.get(this.wordUrl)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
+
   private extractData(res: Response) {
+    this.word = res;
+
   return res || { };
+  }
+
+  handleWord() {
+    this.word = this.word._body;
   }
 
   private handleError (error: Response | any) {
